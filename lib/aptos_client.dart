@@ -26,7 +26,7 @@ class AptosClient with AptosClientInterface {
   @override
   Future<AccountData> getAccount(String address) async {
     final path = "$endpoint/accounts/$address";
-    final resp = await http.get(Uri.parse(path) as String);
+    final resp = await Dio().get(path);
     return AccountData.fromJson(resp.data);
   }
 
