@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:aptos/aptos.dart';
@@ -9,8 +8,7 @@ import 'package:aptos/models/entry_function_payload.dart';
 import 'package:aptos/models/account_data.dart';
 import 'package:aptos/models/table_item.dart';
 import 'package:aptos/models/transaction.dart';
-import 'package:dio/dio.dart' as dio;
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
 
 class AptosClient with AptosClientInterface {
 
@@ -28,13 +26,8 @@ class AptosClient with AptosClientInterface {
   @override
   Future<AccountData> getAccount(String address) async {
     final path = "$endpoint/accounts/$address";
-    final resp = await get(Uri.parse(path));
-    if (resp.statusCode == 200) {
-    final json = jsonDecode(resp.body) as Map<String, dynamic>;
-    return AccountData.fromJson(json);
-  } else {
-    return const AccountData(sequenceNumber: '897899',authenticationKey: 'auth738483');
-  }
+    final resp = await http.get(Uri.parse(path) as String);
+    return AccountData.fromJson(resp.data);
   }
 
   Future<bool> accountExist(String address) async {
@@ -177,8 +170,8 @@ class AptosClient with AptosClientInterface {
 
   Future<dynamic> submitSignedBCSTransaction(Uint8List signedTxn) async {
     final path = "$endpoint/transactions";
-    final file = dio.MultipartFile.fromBytes(signedTxn).finalize();
-    final options = dio.Options(
+    final file = MultipartFile.fromBytes(signedTxn).finalize();
+    final options = Options(
       contentType: "application/x.aptos.signed_transaction+bcs",
       headers: {"content-length": signedTxn.length},
     );
@@ -200,8 +193,8 @@ class AptosClient with AptosClientInterface {
       "estimate_prioritized_gas_unit_price": estimatePrioritizedGasUnitPrice
     };
     final path = "$endpoint/transactions/simulate";
-    final file = dio.MultipartFile.fromBytes(signedTxn).finalize();
-    final options = dio.Options(
+    final file = MultipartFile.fromBytes(signedTxn).finalize();
+    final options = Options(
       contentType: "application/x.aptos.signed_transaction+bcs",
       headers: {"content-length": signedTxn.length},
     );
@@ -372,7 +365,7 @@ class AptosClient with AptosClientInterface {
           break;
         }
       } catch (e) {
-        final isDioError = e is dio.DioError;
+        final isDioError = e is DioError;
         int statusCode = 0;
         if (isDioError) {
           statusCode = e.response?.statusCode ?? 0;
