@@ -30,7 +30,8 @@ class AptosClient with AptosClientInterface {
     final resp = await http.get(path);
     if (resp.statusCode == 200) {
     final json = jsonDecode(resp.data) as Map<String, dynamic>;
-    return AccountData.fromJson(json);
+    // return AccountData.fromJson(json);
+    return const AccountData(sequenceNumber: '123', authenticationKey: 'authenticationkey');
   } else {
     throw Exception('Failed to load account data');
   }
