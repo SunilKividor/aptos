@@ -10,7 +10,6 @@ import 'package:aptos/models/transaction.dart';
 import 'package:dio/dio.dart';
 
 class AptosClient with AptosClientInterface {
-
   static const APTOS_COIN = "0x1::aptos_coin::AptosCoin";
 
   AptosClient(this.endpoint, {this.enableDebugLog = false}) {
@@ -48,7 +47,8 @@ class AptosClient with AptosClientInterface {
     return resp.data;
   }
 
-  Future<dynamic> getAccountResource(String address, String resourceType) async {
+  Future<dynamic> getAccountResource(
+      String address, String resourceType) async {
     final path = "$endpoint/accounts/$address/resource/$resourceType";
     final resp = await Dio().get(path);
     return resp.data;
@@ -66,29 +66,33 @@ class AptosClient with AptosClientInterface {
     try {
       final resp = await Dio().get(path);
       return resp.data;
-    } catch(err) {
+    } catch (err) {
       return null;
     }
   }
 
-
   /// Blocks ///
-  
-  Future<dynamic> getBlocksByHeight(int blockHeight, [bool withTransactioins = false]) async {
-    final path = "$endpoint/blocks/by_height/$blockHeight?with_transactions=$withTransactioins";
+
+  Future<dynamic> getBlocksByHeight(int blockHeight,
+      [bool withTransactioins = false]) async {
+    final path =
+        "$endpoint/blocks/by_height/$blockHeight?with_transactions=$withTransactioins";
     final resp = await Dio().get(path);
     return resp.data;
   }
 
-  Future<dynamic> getBlocksByVersion(int version, [bool withTransactioins = false]) async {
-    final path = "$endpoint/blocks/by_version/$version?with_transactions=$withTransactioins";
+  Future<dynamic> getBlocksByVersion(int version,
+      [bool withTransactioins = false]) async {
+    final path =
+        "$endpoint/blocks/by_version/$version?with_transactions=$withTransactioins";
     final resp = await Dio().get(path);
     return resp.data;
   }
 
   /// Events ///
-  
-  Future<dynamic> getEventsByCreationNumber(String address, int creationNumber, {String? start, int? limit}) async {
+
+  Future<dynamic> getEventsByCreationNumber(String address, int creationNumber,
+      {String? start, int? limit}) async {
     final params = <String, dynamic>{};
     if (start != null) params["start"] = start;
     if (limit != null) params["limit"] = limit;
@@ -98,7 +102,9 @@ class AptosClient with AptosClientInterface {
     return resp.data;
   }
 
-  Future<dynamic> getEventsByEventHandle(String address, String eventHandle, String fieldName, {String? start, int? limit}) async {
+  Future<dynamic> getEventsByEventHandle(
+      String address, String eventHandle, String fieldName,
+      {String? start, int? limit}) async {
     final params = <String, dynamic>{};
     if (start != null) params["start"] = start;
     if (limit != null) params["limit"] = limit;
@@ -109,7 +115,7 @@ class AptosClient with AptosClientInterface {
   }
 
   /// General ///
-  
+
   Future<dynamic> showOpenAPIExplorer() async {
     final path = "$endpoint/spec";
     final resp = await Dio().get(path);
@@ -135,10 +141,10 @@ class AptosClient with AptosClientInterface {
     return chainId;
   }
 
-
   /// Table ///
 
-  Future<dynamic> queryTableItem(String tableHandle, TableItem tableItem) async {
+  Future<dynamic> queryTableItem(
+      String tableHandle, TableItem tableItem) async {
     final path = "$endpoint/tables/$tableHandle/item";
     final data = <String, dynamic>{};
     data["key_type"] = tableItem.keyType;
@@ -147,7 +153,6 @@ class AptosClient with AptosClientInterface {
     final resp = await Dio().post(path, data: data);
     return resp.data;
   }
-
 
   /// Transactions ///
 
@@ -178,14 +183,10 @@ class AptosClient with AptosClientInterface {
     return resp.data;
   }
 
-  Future<dynamic> submitBCSSimulate(
-    Uint8List signedTxn,
-    {
-      bool estimateGasUnitPrice = false,
+  Future<dynamic> submitBCSSimulate(Uint8List signedTxn,
+      {bool estimateGasUnitPrice = false,
       bool estimateMaxGasAmount = false,
-      bool estimatePrioritizedGasUnitPrice = false
-    }
-  ) async {
+      bool estimatePrioritizedGasUnitPrice = false}) async {
     final params = <String, bool>{
       "estimate_gas_unit_price": estimateGasUnitPrice,
       "estimate_max_gas_amount": estimateMaxGasAmount,
@@ -197,20 +198,20 @@ class AptosClient with AptosClientInterface {
       contentType: "application/x.aptos.signed_transaction+bcs",
       headers: {"content-length": signedTxn.length},
     );
-    final resp = await Dio().post(path,
-        data: file, options: options, queryParameters: params);
+    final resp = await Dio()
+        .post(path, data: file, options: options, queryParameters: params);
     return resp.data;
   }
 
-  Future<dynamic> submitBatchTransactions(List<TransactionRequest> transactions) async {
+  Future<dynamic> submitBatchTransactions(
+      List<TransactionRequest> transactions) async {
     final path = "$endpoint/transactions/batch";
     final resp = await Dio().post(path, data: transactions);
     return resp.data;
   }
 
-  Future<dynamic> simulateTransaction(
-    TransactionRequest transaction,
-    { bool estimateGasUnitPrice = false,
+  Future<dynamic> simulateTransaction(TransactionRequest transaction,
+      {bool estimateGasUnitPrice = false,
       bool estimateMaxGasAmount = false,
       bool estimatePrioritizedGasUnitPrice = false}) async {
     final params = <String, bool>{
@@ -219,58 +220,48 @@ class AptosClient with AptosClientInterface {
       "estimate_prioritized_gas_unit_price": estimatePrioritizedGasUnitPrice
     };
     final path = "$endpoint/transactions/simulate";
-    final resp = await Dio().post(path, data: transaction.toJson(), queryParameters: params);
+    final resp = await Dio()
+        .post(path, data: transaction.toJson(), queryParameters: params);
     return resp.data;
   }
 
   /// [accountOrPubkey] type is AptosAccount | Ed25519PublicKey | MultiEd25519PublicKey
   Future<dynamic> simulateRawTransaction(
-    dynamic accountOrPubkey,
-    RawTransaction rawTransaction,
-    { 
-      bool estimateGasUnitPrice = false,
+      dynamic accountOrPubkey, RawTransaction rawTransaction,
+      {bool estimateGasUnitPrice = false,
       bool estimateMaxGasAmount = false,
-      bool estimatePrioritizedGasUnitPrice = false
-    }
-  ) async {
+      bool estimatePrioritizedGasUnitPrice = false}) async {
     Uint8List signedTxn;
     if (accountOrPubkey is AptosAccount) {
-      signedTxn = await AptosClient.generateBCSSimulation(accountOrPubkey, rawTransaction);
+      signedTxn = await AptosClient.generateBCSSimulation(
+          accountOrPubkey, rawTransaction);
     } else if (accountOrPubkey is MultiEd25519PublicKey) {
-      final txnBuilder = TransactionBuilderMultiEd25519(
-        accountOrPubkey, 
-        (_) {
-          final bits = <int>[];
-          final signatures = <Ed25519Signature>[];
-          for (int i = 0; i < accountOrPubkey.threshold; i += 1) {
-            bits.add(i);
-            signatures.add(Ed25519Signature(Uint8List(64)));
-          }
-          final bitmap = MultiEd25519Signature.createBitmap(bits);
-          return MultiEd25519Signature(signatures, bitmap);
+      final txnBuilder = TransactionBuilderMultiEd25519(accountOrPubkey, (_) {
+        final bits = <int>[];
+        final signatures = <Ed25519Signature>[];
+        for (int i = 0; i < accountOrPubkey.threshold; i += 1) {
+          bits.add(i);
+          signatures.add(Ed25519Signature(Uint8List(64)));
         }
-      );
+        final bitmap = MultiEd25519Signature.createBitmap(bits);
+        return MultiEd25519Signature(signatures, bitmap);
+      });
 
       signedTxn = txnBuilder.sign(rawTransaction);
     } else if (accountOrPubkey is Ed25519PublicKey) {
-      final txnBuilder = TransactionBuilderEd25519(
-        accountOrPubkey.value,
-        (_) {
-          return Ed25519Signature(Uint8List(64));
-        }
-      );
+      final txnBuilder = TransactionBuilderEd25519(accountOrPubkey.value, (_) {
+        return Ed25519Signature(Uint8List(64));
+      });
 
       signedTxn = txnBuilder.sign(rawTransaction);
     } else {
       throw ArgumentError("Invalid account value $accountOrPubkey");
     }
 
-    return submitBCSSimulate(
-      signedTxn,
-      estimateGasUnitPrice: estimateGasUnitPrice,
-      estimateMaxGasAmount: estimateMaxGasAmount,
-      estimatePrioritizedGasUnitPrice: estimatePrioritizedGasUnitPrice
-    );
+    return submitBCSSimulate(signedTxn,
+        estimateGasUnitPrice: estimateGasUnitPrice,
+        estimateMaxGasAmount: estimateMaxGasAmount,
+        estimatePrioritizedGasUnitPrice: estimatePrioritizedGasUnitPrice);
   }
 
   Future<dynamic> getTransactionByHash(String txHash) async {
@@ -285,7 +276,8 @@ class AptosClient with AptosClientInterface {
     return resp.data;
   }
 
-  Future<dynamic> getAccountTransactions(String address, {String? start, int? limit}) async {
+  Future<dynamic> getAccountTransactions(String address,
+      {String? start, int? limit}) async {
     final params = <String, dynamic>{};
     if (start != null) params["start"] = start;
     if (limit != null) params["limit"] = limit;
@@ -295,9 +287,14 @@ class AptosClient with AptosClientInterface {
     return resp.data;
   }
 
-  Future<String> encodeSubmission(TransactionEncodeSubmissionRequest transaction) async {
+  Future<String> encodeSubmission(
+      TransactionEncodeSubmissionRequest transaction) async {
     final path = "$endpoint/transactions/encode_submission";
-    final resp = await Dio().post(path, data: transaction);
+    final resp = await Dio().post(path,
+        data: transaction,
+        options: Options(headers: {
+          'Content-Type': 'application/json',
+        }));
     return resp.data;
   }
 
@@ -309,7 +306,8 @@ class AptosClient with AptosClientInterface {
   }
 
   Future<BigInt> estimateGasUnitPrice(TransactionRequest transaction) async {
-    final txData = await simulateTransaction(transaction, estimateGasUnitPrice: true);
+    final txData =
+        await simulateTransaction(transaction, estimateGasUnitPrice: true);
     final txInfo = txData[0];
     bool isSuccess = txInfo["success"];
     if (!isSuccess) throw Exception({txInfo["vm_status"]});
@@ -318,7 +316,8 @@ class AptosClient with AptosClientInterface {
   }
 
   Future<BigInt> estimateGasAmount(TransactionRequest transaction) async {
-    final txData = await simulateTransaction(transaction, estimateMaxGasAmount: true);
+    final txData =
+        await simulateTransaction(transaction, estimateMaxGasAmount: true);
     final txInfo = txData[0];
     bool isSuccess = txInfo["success"];
     if (!isSuccess) throw Exception({txInfo["vm_status"]});
@@ -327,11 +326,8 @@ class AptosClient with AptosClientInterface {
   }
 
   Future<(BigInt, BigInt)> estimateGas(TransactionRequest transaction) async {
-    final txData = await simulateTransaction(
-      transaction, 
-      estimateGasUnitPrice: true,
-      estimateMaxGasAmount: true
-    );
+    final txData = await simulateTransaction(transaction,
+        estimateGasUnitPrice: true, estimateMaxGasAmount: true);
     final txInfo = txData[0];
     final gasUnitPrice = txInfo["gas_unit_price"].toString();
     final gasUsed = txInfo["gas_used"].toString();
@@ -343,10 +339,8 @@ class AptosClient with AptosClientInterface {
     return response["type"] == "pending_transaction";
   }
 
-  Future<dynamic> waitForTransactionWithResult(
-    String txnHash,
-    { int? timeoutSecs, bool? checkSuccess }
-  ) async {
+  Future<dynamic> waitForTransactionWithResult(String txnHash,
+      {int? timeoutSecs, bool? checkSuccess}) async {
     timeoutSecs = timeoutSecs ?? 20;
     checkSuccess = checkSuccess ?? false;
 
@@ -369,7 +363,10 @@ class AptosClient with AptosClientInterface {
         if (isDioError) {
           statusCode = e.response?.statusCode ?? 0;
         }
-        if (isDioError && statusCode != 404 && statusCode >= 400 && statusCode < 500) {
+        if (isDioError &&
+            statusCode != 404 &&
+            statusCode >= 400 &&
+            statusCode < 500) {
           rethrow;
         }
       }
@@ -383,45 +380,41 @@ class AptosClient with AptosClientInterface {
 
     if (isPending) {
       throw Exception(
-        "Waiting for transaction $txnHash timed out after $timeoutSecs seconds"
-      );
+          "Waiting for transaction $txnHash timed out after $timeoutSecs seconds");
     }
     if (!checkSuccess) {
       return lastTxn;
     }
     if (!(lastTxn["success"])) {
       throw Exception(
-        "Transaction $txnHash committed to the blockchain but execution failed"
-      );
+          "Transaction $txnHash committed to the blockchain but execution failed");
     }
     return lastTxn;
   }
 
-  Future<void> waitForTransaction(
-    String txnHash,
-    { int? timeoutSecs, bool? checkSuccess }
-  ) async {
-    await waitForTransactionWithResult(
-      txnHash, 
-      timeoutSecs: timeoutSecs, 
-      checkSuccess: checkSuccess);
+  Future<void> waitForTransaction(String txnHash,
+      {int? timeoutSecs, bool? checkSuccess}) async {
+    await waitForTransactionWithResult(txnHash,
+        timeoutSecs: timeoutSecs, checkSuccess: checkSuccess);
   }
 
   // Generates a signed transaction that can be submitted to the chain for execution.
-  static Uint8List generateBCSTransaction(AptosAccount accountFrom, RawTransaction rawTxn) {
+  static Uint8List generateBCSTransaction(
+      AptosAccount accountFrom, RawTransaction rawTxn) {
     final txnBuilder = TransactionBuilderEd25519(
-      accountFrom.pubKey().toUint8Array(), 
-      (Uint8List signingMessage) => Ed25519Signature(accountFrom.signBuffer(signingMessage).toUint8Array())
-    );
+        accountFrom.pubKey().toUint8Array(),
+        (Uint8List signingMessage) => Ed25519Signature(
+            accountFrom.signBuffer(signingMessage).toUint8Array()));
 
     return txnBuilder.sign(rawTxn);
   }
 
-  static SignedTransaction generateBCSRawTransaction(AptosAccount accountFrom, RawTransaction rawTxn) {
+  static SignedTransaction generateBCSRawTransaction(
+      AptosAccount accountFrom, RawTransaction rawTxn) {
     final txnBuilder = TransactionBuilderEd25519(
-      accountFrom.pubKey().toUint8Array(), 
-      (Uint8List signingMessage) => Ed25519Signature(accountFrom.signBuffer(signingMessage).toUint8Array())
-    );
+        accountFrom.pubKey().toUint8Array(),
+        (Uint8List signingMessage) => Ed25519Signature(
+            accountFrom.signBuffer(signingMessage).toUint8Array()));
 
     return txnBuilder.rawToSigned(rawTxn);
   }
@@ -452,12 +445,12 @@ class AptosClient with AptosClientInterface {
   //       [bcsToBytes(AccountAddress.fromHex(receiverAddress)), bcsSerializeUint64(BigInt.parse(amount))],
   //     ),
   //   );
-    
+
   //   final rawTxn = await generateRawTransaction(
-  //     accountFrom.accountAddress, 
-  //     entryFunctionPayload, 
-  //     maxGasAmount: maxGasAmount, 
-  //     gasUnitPrice: gasUnitPrice, 
+  //     accountFrom.accountAddress,
+  //     entryFunctionPayload,
+  //     maxGasAmount: maxGasAmount,
+  //     gasUnitPrice: gasUnitPrice,
   //     expireTimestamp: expireTimestamp
   //   );
 
@@ -485,31 +478,30 @@ class AptosClient with AptosClientInterface {
   //   );
   // }
 
-
 // Note: Unless you have a specific reason for using this, it'll probably be simpler
 // to use `simulateTransaction`.
 // Generates a BCS transaction that can be submitted to the chain for simulation.
-static Future<Uint8List> generateBCSSimulation(AptosAccount accountFrom, RawTransaction rawTxn) async {
-  final txnBuilder = TransactionBuilderEd25519(
-    accountFrom.pubKey().toUint8Array(), 
-    (Uint8List _signingMessage) => Ed25519Signature(Uint8List(64)));
+  static Future<Uint8List> generateBCSSimulation(
+      AptosAccount accountFrom, RawTransaction rawTxn) async {
+    final txnBuilder = TransactionBuilderEd25519(
+        accountFrom.pubKey().toUint8Array(),
+        (Uint8List _signingMessage) => Ed25519Signature(Uint8List(64)));
 
-  return txnBuilder.sign(rawTxn);
-}
+    return txnBuilder.sign(rawTxn);
+  }
 
   Future<RawTransaction> generateRawTransaction(
-    String accountFrom,
-    TransactionPayload payload,{
-    BigInt? maxGasAmount,
-    BigInt? gasUnitPrice,
-    BigInt? expireTimestamp
-  }) async {
+      String accountFrom, TransactionPayload payload,
+      {BigInt? maxGasAmount,
+      BigInt? gasUnitPrice,
+      BigInt? expireTimestamp}) async {
     final account = await getAccount(accountFrom);
     final chainId = await getChainId();
 
     maxGasAmount ??= BigInt.from(20000);
     gasUnitPrice ??= BigInt.from(await estimateGasPrice());
-    expireTimestamp ??= BigInt.from(DateTime.now().add(const Duration(seconds: 20)).millisecondsSinceEpoch);
+    expireTimestamp ??= BigInt.from(
+        DateTime.now().add(const Duration(seconds: 20)).millisecondsSinceEpoch);
 
     return RawTransaction(
       AccountAddress.fromHex(accountFrom),
@@ -523,49 +515,43 @@ static Future<Uint8List> generateBCSSimulation(AptosAccount accountFrom, RawTran
   }
 
   Future<String> generateSignSubmitTransaction(
-    AptosAccount sender,
-    TransactionPayload payload,{
-    BigInt? maxGasAmount,
-    BigInt? gasUnitPrice,
-    BigInt? expireTimestamp
-  }) async {
-    final rawTransaction = await generateRawTransaction(
-      sender.address,
-      payload,
-      maxGasAmount: maxGasAmount,
-      gasUnitPrice: gasUnitPrice,
-      expireTimestamp: expireTimestamp
-    );
+      AptosAccount sender, TransactionPayload payload,
+      {BigInt? maxGasAmount,
+      BigInt? gasUnitPrice,
+      BigInt? expireTimestamp}) async {
+    final rawTransaction = await generateRawTransaction(sender.address, payload,
+        maxGasAmount: maxGasAmount,
+        gasUnitPrice: gasUnitPrice,
+        expireTimestamp: expireTimestamp);
     final bcsTxn = AptosClient.generateBCSTransaction(sender, rawTransaction);
     final pendingTransaction = await submitSignedBCSTransaction(bcsTxn);
     return pendingTransaction["hash"];
   }
 
   Future<RawTransaction> generateTransaction(
-    AptosAccount sender,
-    EntryFunctionPayload payload,{
-    String? sequenceNumber,
-    String? gasUnitPrice,
-    String? maxGasAmount,
-    String? expirationTimestampSecs
-  }) async {
+      AptosAccount sender, EntryFunctionPayload payload,
+      {String? sequenceNumber,
+      String? gasUnitPrice,
+      String? maxGasAmount,
+      String? expirationTimestampSecs}) async {
     final builderConfig = ABIBuilderConfig(
-      sender: sender.address,
-      sequenceNumber: sequenceNumber != null ? BigInt.parse(sequenceNumber) : null,
-      gasUnitPrice: gasUnitPrice != null ? BigInt.parse(gasUnitPrice) : null,
-      maxGasAmount: maxGasAmount != null ? BigInt.parse(maxGasAmount) : null,
-      expSecFromNow: expirationTimestampSecs != null ? BigInt.parse(expirationTimestampSecs) : null
-    );
+        sender: sender.address,
+        sequenceNumber:
+            sequenceNumber != null ? BigInt.parse(sequenceNumber) : null,
+        gasUnitPrice: gasUnitPrice != null ? BigInt.parse(gasUnitPrice) : null,
+        maxGasAmount: maxGasAmount != null ? BigInt.parse(maxGasAmount) : null,
+        expSecFromNow: expirationTimestampSecs != null
+            ? BigInt.parse(expirationTimestampSecs)
+            : null);
     final builder = TransactionBuilderRemoteABI(this, builderConfig);
-    return await builder.build(payload.functionId, payload.typeArguments, payload.arguments);
+    return await builder.build(
+        payload.functionId, payload.typeArguments, payload.arguments);
   }
 
   /// Converts a transaction request produced by [generateTransaction] into a properly
   /// signed transaction, which can then be submitted to the blockchain.
   Uint8List signTransaction(
-    AptosAccount accountFrom, 
-    RawTransaction rawTransaction
-  ) {
+      AptosAccount accountFrom, RawTransaction rawTransaction) {
     return AptosClient.generateBCSTransaction(accountFrom, rawTransaction);
   }
 
@@ -594,7 +580,8 @@ static Future<Uint8List> generateBCSSimulation(AptosAccount accountFrom, RawTran
 
     final challengeBytes = bcsToBytes(challenge);
 
-    final proofSignedByCurrentPrivateKey = forAccount.signBuffer(challengeBytes);
+    final proofSignedByCurrentPrivateKey =
+        forAccount.signBuffer(challengeBytes);
 
     final proofSignedByNewPrivateKey = helperAccount.signBuffer(challengeBytes);
 
@@ -614,15 +601,19 @@ static Future<Uint8List> generateBCSSimulation(AptosAccount accountFrom, RawTran
       ),
     );
 
-    final rawTransaction = await generateRawTransaction(forAccount.address, payload);
-    final bcsTxn = AptosClient.generateBCSTransaction(forAccount, rawTransaction);
+    final rawTransaction =
+        await generateRawTransaction(forAccount.address, payload);
+    final bcsTxn =
+        AptosClient.generateBCSTransaction(forAccount, rawTransaction);
     return submitSignedBCSTransaction(bcsTxn);
   }
 
   Future<String> lookupOriginalAddress(String addressOrAuthKey) async {
-    final resource = await getAccountResource("0x1", "0x1::account::OriginatingAddress");
+    final resource =
+        await getAccountResource("0x1", "0x1::account::OriginatingAddress");
     final handle = resource["data"]["address_map"]["handle"];
-    final tableItem = TableItem("address", "address", HexString.ensure(addressOrAuthKey).hex());
+    final tableItem = TableItem(
+        "address", "address", HexString.ensure(addressOrAuthKey).hex());
     final origAddress = await queryTableItem(handle, tableItem);
     return origAddress.toString();
   }
@@ -630,20 +621,17 @@ static Future<Uint8List> generateBCSSimulation(AptosAccount accountFrom, RawTran
   /// View ///
 
   Future<dynamic> view(
-    String function,
-    List<dynamic> typeArguments,
-    List<dynamic> arguments,
-    {int? ledgerVersion}
-  ) async {
+      String function, List<dynamic> typeArguments, List<dynamic> arguments,
+      {int? ledgerVersion}) async {
     final data = <String, dynamic>{
       "function": function,
       "type_arguments": typeArguments,
       "arguments": arguments
     };
-    final params = ledgerVersion != null ? { "ledger_version": ledgerVersion } : null;
+    final params =
+        ledgerVersion != null ? {"ledger_version": ledgerVersion} : null;
     final path = "$endpoint/view";
     final resp = await Dio().post(path, data: data, queryParameters: params);
     return resp.data;
   }
-
 }
