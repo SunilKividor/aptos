@@ -12,7 +12,7 @@ part of 'coin_activities.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CoinActivities _$CoinActivitiesFromJson(Map<String, dynamic> json) {
   return _CoinActivities.fromJson(json);
@@ -28,12 +28,12 @@ mixin _$CoinActivities {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CoinActivities implements _CoinActivities {
-  const _$_CoinActivities({required final List<CoinActivity> coinActivities})
+class _$CoinActivitiesImpl implements _CoinActivities {
+  const _$CoinActivitiesImpl({required final List<CoinActivity> coinActivities})
       : _coinActivities = coinActivities;
 
-  factory _$_CoinActivities.fromJson(Map<String, dynamic> json) =>
-      _$$_CoinActivitiesFromJson(json);
+  factory _$CoinActivitiesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CoinActivitiesImplFromJson(json);
 
   final List<CoinActivity> _coinActivities;
   @override
@@ -50,7 +50,7 @@ class _$_CoinActivities implements _CoinActivities {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CoinActivitiesToJson(
+    return _$$CoinActivitiesImplToJson(
       this,
     );
   }
@@ -58,10 +58,11 @@ class _$_CoinActivities implements _CoinActivities {
 
 abstract class _CoinActivities implements CoinActivities {
   const factory _CoinActivities(
-      {required final List<CoinActivity> coinActivities}) = _$_CoinActivities;
+          {required final List<CoinActivity> coinActivities}) =
+      _$CoinActivitiesImpl;
 
   factory _CoinActivities.fromJson(Map<String, dynamic> json) =
-      _$_CoinActivities.fromJson;
+      _$CoinActivitiesImpl.fromJson;
 
   @override
   List<CoinActivity> get coinActivities;
@@ -92,8 +93,8 @@ mixin _$CoinActivity {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CoinActivity implements _CoinActivity {
-  const _$_CoinActivity(
+class _$CoinActivityImpl implements _CoinActivity {
+  const _$CoinActivityImpl(
       {required this.transactionTimestamp,
       required this.transactionVersion,
       required this.amount,
@@ -107,8 +108,8 @@ class _$_CoinActivity implements _CoinActivity {
       this.entryFunctionIdStr,
       required this.blockHeight});
 
-  factory _$_CoinActivity.fromJson(Map<String, dynamic> json) =>
-      _$$_CoinActivityFromJson(json);
+  factory _$CoinActivityImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CoinActivityImplFromJson(json);
 
   @override
   final String transactionTimestamp;
@@ -142,7 +143,7 @@ class _$_CoinActivity implements _CoinActivity {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CoinActivityToJson(
+    return _$$CoinActivityImplToJson(
       this,
     );
   }
@@ -161,10 +162,10 @@ abstract class _CoinActivity implements CoinActivity {
       required final int eventCreationNumber,
       required final int eventSequenceNumber,
       final String? entryFunctionIdStr,
-      required final int blockHeight}) = _$_CoinActivity;
+      required final int blockHeight}) = _$CoinActivityImpl;
 
   factory _CoinActivity.fromJson(Map<String, dynamic> json) =
-      _$_CoinActivity.fromJson;
+      _$CoinActivityImpl.fromJson;
 
   @override
   String get transactionTimestamp;

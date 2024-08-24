@@ -6,31 +6,31 @@ part of 'account_nfts.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AccountNFTs _$$_AccountNFTsFromJson(Map<String, dynamic> json) =>
-    _$_AccountNFTs(
+_$AccountNFTsImpl _$$AccountNFTsImplFromJson(Map<String, dynamic> json) =>
+    _$AccountNFTsImpl(
       currentTokenOwnerships:
           (json['current_token_ownerships'] as List<dynamic>)
               .map((e) => AccountNFT.fromJson(e as Map<String, dynamic>))
               .toList(),
     );
 
-Map<String, dynamic> _$$_AccountNFTsToJson(_$_AccountNFTs instance) =>
+Map<String, dynamic> _$$AccountNFTsImplToJson(_$AccountNFTsImpl instance) =>
     <String, dynamic>{
       'current_token_ownerships': instance.currentTokenOwnerships,
     };
 
-_$_AccountNFT _$$_AccountNFTFromJson(Map<String, dynamic> json) =>
-    _$_AccountNFT(
-      amount: json['amount'] as int,
+_$AccountNFTImpl _$$AccountNFTImplFromJson(Map<String, dynamic> json) =>
+    _$AccountNFTImpl(
+      amount: (json['amount'] as num).toInt(),
       currentTokenData: TokenData.fromJson(
           json['current_token_data'] as Map<String, dynamic>),
       currentCollectionData: CollectionData.fromJson(
           json['current_collection_data'] as Map<String, dynamic>),
-      lastTransactionVersion: json['last_transaction_version'] as int,
-      propertyVersion: json['property_version'] as int,
+      lastTransactionVersion: (json['last_transaction_version'] as num).toInt(),
+      propertyVersion: (json['property_version'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$_AccountNFTToJson(_$_AccountNFT instance) =>
+Map<String, dynamic> _$$AccountNFTImplToJson(_$AccountNFTImpl instance) =>
     <String, dynamic>{
       'amount': instance.amount,
       'current_token_data': instance.currentTokenData,
@@ -39,7 +39,8 @@ Map<String, dynamic> _$$_AccountNFTToJson(_$_AccountNFT instance) =>
       'property_version': instance.propertyVersion,
     };
 
-_$_TokenData _$$_TokenDataFromJson(Map<String, dynamic> json) => _$_TokenData(
+_$TokenDataImpl _$$TokenDataImplFromJson(Map<String, dynamic> json) =>
+    _$TokenDataImpl(
       creatorAddress: json['creator_address'] as String,
       collectionName: json['collection_name'] as String,
       description: json['description'] as String,
@@ -49,7 +50,7 @@ _$_TokenData _$$_TokenDataFromJson(Map<String, dynamic> json) => _$_TokenData(
       collectionDataIdHash: json['collection_data_id_hash'] as String,
     );
 
-Map<String, dynamic> _$$_TokenDataToJson(_$_TokenData instance) =>
+Map<String, dynamic> _$$TokenDataImplToJson(_$TokenDataImpl instance) =>
     <String, dynamic>{
       'creator_address': instance.creatorAddress,
       'collection_name': instance.collectionName,
@@ -60,10 +61,10 @@ Map<String, dynamic> _$$_TokenDataToJson(_$_TokenData instance) =>
       'collection_data_id_hash': instance.collectionDataIdHash,
     };
 
-_$_CollectionData _$$_CollectionDataFromJson(Map<String, dynamic> json) =>
-    _$_CollectionData(
+_$CollectionDataImpl _$$CollectionDataImplFromJson(Map<String, dynamic> json) =>
+    _$CollectionDataImpl(
       metadataUri: json['metadata_uri'] as String,
-      supply: json['supply'] as int,
+      supply: (json['supply'] as num).toInt(),
       description: json['description'] as String,
       collectionName: json['collection_name'] as String,
       collectionDataIdHash: json['collection_data_id_hash'] as String,
@@ -71,7 +72,8 @@ _$_CollectionData _$$_CollectionDataFromJson(Map<String, dynamic> json) =>
       creatorAddress: json['creator_address'] as String,
     );
 
-Map<String, dynamic> _$$_CollectionDataToJson(_$_CollectionData instance) =>
+Map<String, dynamic> _$$CollectionDataImplToJson(
+        _$CollectionDataImpl instance) =>
     <String, dynamic>{
       'metadata_uri': instance.metadataUri,
       'supply': instance.supply,

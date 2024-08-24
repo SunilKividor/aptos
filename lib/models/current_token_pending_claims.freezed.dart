@@ -12,7 +12,7 @@ part of 'current_token_pending_claims.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CurrentTokenPendingClaims _$CurrentTokenPendingClaimsFromJson(
     Map<String, dynamic> json) {
@@ -30,13 +30,13 @@ mixin _$CurrentTokenPendingClaims {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CurrentTokenPendingClaims implements _CurrentTokenPendingClaims {
-  const _$_CurrentTokenPendingClaims(
+class _$CurrentTokenPendingClaimsImpl implements _CurrentTokenPendingClaims {
+  const _$CurrentTokenPendingClaimsImpl(
       {required final List<CurrentTokenPending> currentTokenPendingClaims})
       : _currentTokenPendingClaims = currentTokenPendingClaims;
 
-  factory _$_CurrentTokenPendingClaims.fromJson(Map<String, dynamic> json) =>
-      _$$_CurrentTokenPendingClaimsFromJson(json);
+  factory _$CurrentTokenPendingClaimsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CurrentTokenPendingClaimsImplFromJson(json);
 
   final List<CurrentTokenPending> _currentTokenPendingClaims;
   @override
@@ -54,7 +54,7 @@ class _$_CurrentTokenPendingClaims implements _CurrentTokenPendingClaims {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CurrentTokenPendingClaimsToJson(
+    return _$$CurrentTokenPendingClaimsImplToJson(
       this,
     );
   }
@@ -63,10 +63,10 @@ class _$_CurrentTokenPendingClaims implements _CurrentTokenPendingClaims {
 abstract class _CurrentTokenPendingClaims implements CurrentTokenPendingClaims {
   const factory _CurrentTokenPendingClaims(
       {required final List<CurrentTokenPending>
-          currentTokenPendingClaims}) = _$_CurrentTokenPendingClaims;
+          currentTokenPendingClaims}) = _$CurrentTokenPendingClaimsImpl;
 
   factory _CurrentTokenPendingClaims.fromJson(Map<String, dynamic> json) =
-      _$_CurrentTokenPendingClaims.fromJson;
+      _$CurrentTokenPendingClaimsImpl.fromJson;
 
   @override
   List<CurrentTokenPending> get currentTokenPendingClaims;
@@ -94,8 +94,8 @@ mixin _$CurrentTokenPending {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CurrentTokenPending implements _CurrentTokenPending {
-  const _$_CurrentTokenPending(
+class _$CurrentTokenPendingImpl implements _CurrentTokenPending {
+  const _$CurrentTokenPendingImpl(
       {required this.fromAddress,
       required this.toAddress,
       required this.creatorAddress,
@@ -105,8 +105,8 @@ class _$_CurrentTokenPending implements _CurrentTokenPending {
       required this.amount,
       required this.currentCollectionData});
 
-  factory _$_CurrentTokenPending.fromJson(Map<String, dynamic> json) =>
-      _$$_CurrentTokenPendingFromJson(json);
+  factory _$CurrentTokenPendingImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CurrentTokenPendingImplFromJson(json);
 
   @override
   final String fromAddress;
@@ -132,7 +132,7 @@ class _$_CurrentTokenPending implements _CurrentTokenPending {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CurrentTokenPendingToJson(
+    return _$$CurrentTokenPendingImplToJson(
       this,
     );
   }
@@ -148,10 +148,10 @@ abstract class _CurrentTokenPending implements CurrentTokenPending {
           required final int propertyVersion,
           required final int amount,
           required final CurrentCollectionData currentCollectionData}) =
-      _$_CurrentTokenPending;
+      _$CurrentTokenPendingImpl;
 
   factory _CurrentTokenPending.fromJson(Map<String, dynamic> json) =
-      _$_CurrentTokenPending.fromJson;
+      _$CurrentTokenPendingImpl.fromJson;
 
   @override
   String get fromAddress;
@@ -191,8 +191,8 @@ mixin _$CurrentCollectionData {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CurrentCollectionData implements _CurrentCollectionData {
-  const _$_CurrentCollectionData(
+class _$CurrentCollectionDataImpl implements _CurrentCollectionData {
+  const _$CurrentCollectionDataImpl(
       {required this.collectionDataIdHash,
       required this.collectionName,
       required this.description,
@@ -200,8 +200,8 @@ class _$_CurrentCollectionData implements _CurrentCollectionData {
       required this.metadataUri,
       required this.supply});
 
-  factory _$_CurrentCollectionData.fromJson(Map<String, dynamic> json) =>
-      _$$_CurrentCollectionDataFromJson(json);
+  factory _$CurrentCollectionDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CurrentCollectionDataImplFromJson(json);
 
   @override
   final String collectionDataIdHash;
@@ -223,7 +223,7 @@ class _$_CurrentCollectionData implements _CurrentCollectionData {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CurrentCollectionDataToJson(
+    return _$$CurrentCollectionDataImplToJson(
       this,
     );
   }
@@ -236,10 +236,10 @@ abstract class _CurrentCollectionData implements CurrentCollectionData {
       required final String description,
       required final int lastTransactionVersion,
       required final String metadataUri,
-      required final int supply}) = _$_CurrentCollectionData;
+      required final int supply}) = _$CurrentCollectionDataImpl;
 
   factory _CurrentCollectionData.fromJson(Map<String, dynamic> json) =
-      _$_CurrentCollectionData.fromJson;
+      _$CurrentCollectionDataImpl.fromJson;
 
   @override
   String get collectionDataIdHash;

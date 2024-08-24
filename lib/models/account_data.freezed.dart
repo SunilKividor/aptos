@@ -12,7 +12,7 @@ part of 'account_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 AccountData _$AccountDataFromJson(Map<String, dynamic> json) {
   return _AccountData.fromJson(json);
@@ -29,12 +29,12 @@ mixin _$AccountData {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_AccountData implements _AccountData {
-  const _$_AccountData(
+class _$AccountDataImpl implements _AccountData {
+  const _$AccountDataImpl(
       {required this.sequenceNumber, required this.authenticationKey});
 
-  factory _$_AccountData.fromJson(Map<String, dynamic> json) =>
-      _$$_AccountDataFromJson(json);
+  factory _$AccountDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AccountDataImplFromJson(json);
 
   @override
   final String sequenceNumber;
@@ -48,7 +48,7 @@ class _$_AccountData implements _AccountData {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AccountDataToJson(
+    return _$$AccountDataImplToJson(
       this,
     );
   }
@@ -57,10 +57,10 @@ class _$_AccountData implements _AccountData {
 abstract class _AccountData implements AccountData {
   const factory _AccountData(
       {required final String sequenceNumber,
-      required final String authenticationKey}) = _$_AccountData;
+      required final String authenticationKey}) = _$AccountDataImpl;
 
   factory _AccountData.fromJson(Map<String, dynamic> json) =
-      _$_AccountData.fromJson;
+      _$AccountDataImpl.fromJson;
 
   @override
   String get sequenceNumber;

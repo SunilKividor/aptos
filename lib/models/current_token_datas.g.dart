@@ -6,21 +6,23 @@ part of 'current_token_datas.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CurrentTokenDatas _$$_CurrentTokenDatasFromJson(Map<String, dynamic> json) =>
-    _$_CurrentTokenDatas(
+_$CurrentTokenDatasImpl _$$CurrentTokenDatasImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CurrentTokenDatasImpl(
       currentTokenDatasV2: (json['current_token_datas_v2'] as List<dynamic>)
           .map((e) => CurrentTokenData.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$_CurrentTokenDatasToJson(
-        _$_CurrentTokenDatas instance) =>
+Map<String, dynamic> _$$CurrentTokenDatasImplToJson(
+        _$CurrentTokenDatasImpl instance) =>
     <String, dynamic>{
       'current_token_datas_v2': instance.currentTokenDatasV2,
     };
 
-_$_CurrentTokenData _$$_CurrentTokenDataFromJson(Map<String, dynamic> json) =>
-    _$_CurrentTokenData(
+_$CurrentTokenDataImpl _$$CurrentTokenDataImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CurrentTokenDataImpl(
       tokenDataId: json['token_data_id'] as String,
       tokenName: json['token_name'] as String,
       tokenUri: json['token_uri'] as String,
@@ -28,11 +30,12 @@ _$_CurrentTokenData _$$_CurrentTokenDataFromJson(Map<String, dynamic> json) =>
           json['token_properties'] as Map<String, dynamic>),
       tokenStandard:
           $enumDecode(_$TokenStandardEnumMap, json['token_standard']),
-      largestPropertyVersionV1: json['largest_property_version_v1'] as int?,
-      maximum: json['maximum'] as int?,
+      largestPropertyVersionV1:
+          (json['largest_property_version_v1'] as num?)?.toInt(),
+      maximum: (json['maximum'] as num?)?.toInt(),
       isFungibleV2: json['is_fungible_v2'] as bool?,
-      supply: json['supply'] as int,
-      lastTransactionVersion: json['last_transaction_version'] as int,
+      supply: (json['supply'] as num).toInt(),
+      lastTransactionVersion: (json['last_transaction_version'] as num).toInt(),
       lastTransactionTimestamp: json['last_transaction_timestamp'] as String,
       currentCollection: json['current_collection'] == null
           ? null
@@ -40,7 +43,8 @@ _$_CurrentTokenData _$$_CurrentTokenDataFromJson(Map<String, dynamic> json) =>
               json['current_collection'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_CurrentTokenDataToJson(_$_CurrentTokenData instance) =>
+Map<String, dynamic> _$$CurrentTokenDataImplToJson(
+        _$CurrentTokenDataImpl instance) =>
     <String, dynamic>{
       'token_data_id': instance.tokenDataId,
       'token_name': instance.tokenName,
@@ -61,29 +65,32 @@ const _$TokenStandardEnumMap = {
   TokenStandard.v2: 'v2',
 };
 
-_$_TokenProperties _$$_TokenPropertiesFromJson(Map<String, dynamic> json) =>
-    _$_TokenProperties(
+_$TokenPropertiesImpl _$$TokenPropertiesImplFromJson(
+        Map<String, dynamic> json) =>
+    _$TokenPropertiesImpl(
       tokenBurnableByOwner: json['TOKEN_BURNABLE_BY_OWNER'] as String?,
       tokenPropertyMutatble: json['TOKEN_PROPERTY_MUTATBLE'] as String?,
     );
 
-Map<String, dynamic> _$$_TokenPropertiesToJson(_$_TokenProperties instance) =>
+Map<String, dynamic> _$$TokenPropertiesImplToJson(
+        _$TokenPropertiesImpl instance) =>
     <String, dynamic>{
       'TOKEN_BURNABLE_BY_OWNER': instance.tokenBurnableByOwner,
       'TOKEN_PROPERTY_MUTATBLE': instance.tokenPropertyMutatble,
     };
 
-_$_CurrentCollection _$$_CurrentCollectionFromJson(Map<String, dynamic> json) =>
-    _$_CurrentCollection(
+_$CurrentCollectionImpl _$$CurrentCollectionImplFromJson(
+        Map<String, dynamic> json) =>
+    _$CurrentCollectionImpl(
       collectionId: json['collection_id'] as String,
       collectionName: json['collection_name'] as String,
       creatorAddress: json['creator_address'] as String,
       uri: json['uri'] as String,
-      currentSupply: json['current_supply'] as int,
+      currentSupply: (json['current_supply'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$_CurrentCollectionToJson(
-        _$_CurrentCollection instance) =>
+Map<String, dynamic> _$$CurrentCollectionImplToJson(
+        _$CurrentCollectionImpl instance) =>
     <String, dynamic>{
       'collection_id': instance.collectionId,
       'collection_name': instance.collectionName,

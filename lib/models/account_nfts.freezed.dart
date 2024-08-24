@@ -12,7 +12,7 @@ part of 'account_nfts.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 AccountNFTs _$AccountNFTsFromJson(Map<String, dynamic> json) {
   return _AccountNFTs.fromJson(json);
@@ -29,12 +29,13 @@ mixin _$AccountNFTs {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_AccountNFTs implements _AccountNFTs {
-  const _$_AccountNFTs({required final List<AccountNFT> currentTokenOwnerships})
+class _$AccountNFTsImpl implements _AccountNFTs {
+  const _$AccountNFTsImpl(
+      {required final List<AccountNFT> currentTokenOwnerships})
       : _currentTokenOwnerships = currentTokenOwnerships;
 
-  factory _$_AccountNFTs.fromJson(Map<String, dynamic> json) =>
-      _$$_AccountNFTsFromJson(json);
+  factory _$AccountNFTsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AccountNFTsImplFromJson(json);
 
   final List<AccountNFT> _currentTokenOwnerships;
   @override
@@ -52,7 +53,7 @@ class _$_AccountNFTs implements _AccountNFTs {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AccountNFTsToJson(
+    return _$$AccountNFTsImplToJson(
       this,
     );
   }
@@ -61,10 +62,10 @@ class _$_AccountNFTs implements _AccountNFTs {
 abstract class _AccountNFTs implements AccountNFTs {
   const factory _AccountNFTs(
           {required final List<AccountNFT> currentTokenOwnerships}) =
-      _$_AccountNFTs;
+      _$AccountNFTsImpl;
 
   factory _AccountNFTs.fromJson(Map<String, dynamic> json) =
-      _$_AccountNFTs.fromJson;
+      _$AccountNFTsImpl.fromJson;
 
   @override
   List<AccountNFT> get currentTokenOwnerships;
@@ -89,16 +90,16 @@ mixin _$AccountNFT {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_AccountNFT implements _AccountNFT {
-  const _$_AccountNFT(
+class _$AccountNFTImpl implements _AccountNFT {
+  const _$AccountNFTImpl(
       {required this.amount,
       required this.currentTokenData,
       required this.currentCollectionData,
       required this.lastTransactionVersion,
       required this.propertyVersion});
 
-  factory _$_AccountNFT.fromJson(Map<String, dynamic> json) =>
-      _$$_AccountNFTFromJson(json);
+  factory _$AccountNFTImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AccountNFTImplFromJson(json);
 
   @override
   final int amount;
@@ -118,7 +119,7 @@ class _$_AccountNFT implements _AccountNFT {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AccountNFTToJson(
+    return _$$AccountNFTImplToJson(
       this,
     );
   }
@@ -130,10 +131,10 @@ abstract class _AccountNFT implements AccountNFT {
       required final TokenData currentTokenData,
       required final CollectionData currentCollectionData,
       required final int lastTransactionVersion,
-      required final int propertyVersion}) = _$_AccountNFT;
+      required final int propertyVersion}) = _$AccountNFTImpl;
 
   factory _AccountNFT.fromJson(Map<String, dynamic> json) =
-      _$_AccountNFT.fromJson;
+      _$AccountNFTImpl.fromJson;
 
   @override
   int get amount;
@@ -167,8 +168,8 @@ mixin _$TokenData {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_TokenData implements _TokenData {
-  const _$_TokenData(
+class _$TokenDataImpl implements _TokenData {
+  const _$TokenDataImpl(
       {required this.creatorAddress,
       required this.collectionName,
       required this.description,
@@ -177,8 +178,8 @@ class _$_TokenData implements _TokenData {
       required this.tokenDataIdHash,
       required this.collectionDataIdHash});
 
-  factory _$_TokenData.fromJson(Map<String, dynamic> json) =>
-      _$$_TokenDataFromJson(json);
+  factory _$TokenDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TokenDataImplFromJson(json);
 
   @override
   final String creatorAddress;
@@ -202,7 +203,7 @@ class _$_TokenData implements _TokenData {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TokenDataToJson(
+    return _$$TokenDataImplToJson(
       this,
     );
   }
@@ -216,10 +217,10 @@ abstract class _TokenData implements TokenData {
       required final String metadataUri,
       required final String name,
       required final String tokenDataIdHash,
-      required final String collectionDataIdHash}) = _$_TokenData;
+      required final String collectionDataIdHash}) = _$TokenDataImpl;
 
   factory _TokenData.fromJson(Map<String, dynamic> json) =
-      _$_TokenData.fromJson;
+      _$TokenDataImpl.fromJson;
 
   @override
   String get creatorAddress;
@@ -257,8 +258,8 @@ mixin _$CollectionData {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CollectionData implements _CollectionData {
-  const _$_CollectionData(
+class _$CollectionDataImpl implements _CollectionData {
+  const _$CollectionDataImpl(
       {required this.metadataUri,
       required this.supply,
       required this.description,
@@ -267,8 +268,8 @@ class _$_CollectionData implements _CollectionData {
       required this.tableHandle,
       required this.creatorAddress});
 
-  factory _$_CollectionData.fromJson(Map<String, dynamic> json) =>
-      _$$_CollectionDataFromJson(json);
+  factory _$CollectionDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CollectionDataImplFromJson(json);
 
   @override
   final String metadataUri;
@@ -292,7 +293,7 @@ class _$_CollectionData implements _CollectionData {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CollectionDataToJson(
+    return _$$CollectionDataImplToJson(
       this,
     );
   }
@@ -306,10 +307,10 @@ abstract class _CollectionData implements CollectionData {
       required final String collectionName,
       required final String collectionDataIdHash,
       required final String tableHandle,
-      required final String creatorAddress}) = _$_CollectionData;
+      required final String creatorAddress}) = _$CollectionDataImpl;
 
   factory _CollectionData.fromJson(Map<String, dynamic> json) =
-      _$_CollectionData.fromJson;
+      _$CollectionDataImpl.fromJson;
 
   @override
   String get metadataUri;

@@ -12,7 +12,7 @@ part of 'current_token_datas.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CurrentTokenDatas _$CurrentTokenDatasFromJson(Map<String, dynamic> json) {
   return _CurrentTokenDatas.fromJson(json);
@@ -29,13 +29,13 @@ mixin _$CurrentTokenDatas {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CurrentTokenDatas implements _CurrentTokenDatas {
-  const _$_CurrentTokenDatas(
+class _$CurrentTokenDatasImpl implements _CurrentTokenDatas {
+  const _$CurrentTokenDatasImpl(
       {required final List<CurrentTokenData> currentTokenDatasV2})
       : _currentTokenDatasV2 = currentTokenDatasV2;
 
-  factory _$_CurrentTokenDatas.fromJson(Map<String, dynamic> json) =>
-      _$$_CurrentTokenDatasFromJson(json);
+  factory _$CurrentTokenDatasImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CurrentTokenDatasImplFromJson(json);
 
   final List<CurrentTokenData> _currentTokenDatasV2;
   @override
@@ -53,7 +53,7 @@ class _$_CurrentTokenDatas implements _CurrentTokenDatas {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CurrentTokenDatasToJson(
+    return _$$CurrentTokenDatasImplToJson(
       this,
     );
   }
@@ -62,10 +62,10 @@ class _$_CurrentTokenDatas implements _CurrentTokenDatas {
 abstract class _CurrentTokenDatas implements CurrentTokenDatas {
   const factory _CurrentTokenDatas(
           {required final List<CurrentTokenData> currentTokenDatasV2}) =
-      _$_CurrentTokenDatas;
+      _$CurrentTokenDatasImpl;
 
   factory _CurrentTokenDatas.fromJson(Map<String, dynamic> json) =
-      _$_CurrentTokenDatas.fromJson;
+      _$CurrentTokenDatasImpl.fromJson;
 
   @override
   List<CurrentTokenData> get currentTokenDatasV2;
@@ -97,8 +97,8 @@ mixin _$CurrentTokenData {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CurrentTokenData implements _CurrentTokenData {
-  const _$_CurrentTokenData(
+class _$CurrentTokenDataImpl implements _CurrentTokenData {
+  const _$CurrentTokenDataImpl(
       {required this.tokenDataId,
       required this.tokenName,
       required this.tokenUri,
@@ -112,8 +112,8 @@ class _$_CurrentTokenData implements _CurrentTokenData {
       required this.lastTransactionTimestamp,
       required this.currentCollection});
 
-  factory _$_CurrentTokenData.fromJson(Map<String, dynamic> json) =>
-      _$$_CurrentTokenDataFromJson(json);
+  factory _$CurrentTokenDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CurrentTokenDataImplFromJson(json);
 
   @override
   final String tokenDataId;
@@ -147,7 +147,7 @@ class _$_CurrentTokenData implements _CurrentTokenData {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CurrentTokenDataToJson(
+    return _$$CurrentTokenDataImplToJson(
       this,
     );
   }
@@ -167,10 +167,10 @@ abstract class _CurrentTokenData implements CurrentTokenData {
           required final int lastTransactionVersion,
           required final String lastTransactionTimestamp,
           required final CurrentCollection? currentCollection}) =
-      _$_CurrentTokenData;
+      _$CurrentTokenDataImpl;
 
   factory _CurrentTokenData.fromJson(Map<String, dynamic> json) =
-      _$_CurrentTokenData.fromJson;
+      _$CurrentTokenDataImpl.fromJson;
 
   @override
   String get tokenDataId;
@@ -213,13 +213,13 @@ mixin _$TokenProperties {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.screamingSnake)
-class _$_TokenProperties implements _TokenProperties {
-  const _$_TokenProperties(
+class _$TokenPropertiesImpl implements _TokenProperties {
+  const _$TokenPropertiesImpl(
       {required this.tokenBurnableByOwner,
       required this.tokenPropertyMutatble});
 
-  factory _$_TokenProperties.fromJson(Map<String, dynamic> json) =>
-      _$$_TokenPropertiesFromJson(json);
+  factory _$TokenPropertiesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TokenPropertiesImplFromJson(json);
 
   @override
   final String? tokenBurnableByOwner;
@@ -233,7 +233,7 @@ class _$_TokenProperties implements _TokenProperties {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TokenPropertiesToJson(
+    return _$$TokenPropertiesImplToJson(
       this,
     );
   }
@@ -242,10 +242,10 @@ class _$_TokenProperties implements _TokenProperties {
 abstract class _TokenProperties implements TokenProperties {
   const factory _TokenProperties(
       {required final String? tokenBurnableByOwner,
-      required final String? tokenPropertyMutatble}) = _$_TokenProperties;
+      required final String? tokenPropertyMutatble}) = _$TokenPropertiesImpl;
 
   factory _TokenProperties.fromJson(Map<String, dynamic> json) =
-      _$_TokenProperties.fromJson;
+      _$TokenPropertiesImpl.fromJson;
 
   @override
   String? get tokenBurnableByOwner;
@@ -271,16 +271,16 @@ mixin _$CurrentCollection {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CurrentCollection implements _CurrentCollection {
-  const _$_CurrentCollection(
+class _$CurrentCollectionImpl implements _CurrentCollection {
+  const _$CurrentCollectionImpl(
       {required this.collectionId,
       required this.collectionName,
       required this.creatorAddress,
       required this.uri,
       required this.currentSupply});
 
-  factory _$_CurrentCollection.fromJson(Map<String, dynamic> json) =>
-      _$$_CurrentCollectionFromJson(json);
+  factory _$CurrentCollectionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CurrentCollectionImplFromJson(json);
 
   @override
   final String collectionId;
@@ -300,7 +300,7 @@ class _$_CurrentCollection implements _CurrentCollection {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CurrentCollectionToJson(
+    return _$$CurrentCollectionImplToJson(
       this,
     );
   }
@@ -312,10 +312,10 @@ abstract class _CurrentCollection implements CurrentCollection {
       required final String collectionName,
       required final String creatorAddress,
       required final String uri,
-      required final int currentSupply}) = _$_CurrentCollection;
+      required final int currentSupply}) = _$CurrentCollectionImpl;
 
   factory _CurrentCollection.fromJson(Map<String, dynamic> json) =
-      _$_CurrentCollection.fromJson;
+      _$CurrentCollectionImpl.fromJson;
 
   @override
   String get collectionId;

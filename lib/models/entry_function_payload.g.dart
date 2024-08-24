@@ -6,9 +6,9 @@ part of 'entry_function_payload.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_EntryFunctionPayload _$$_EntryFunctionPayloadFromJson(
+_$EntryFunctionPayloadImpl _$$EntryFunctionPayloadImplFromJson(
         Map<String, dynamic> json) =>
-    _$_EntryFunctionPayload(
+    _$EntryFunctionPayloadImpl(
       functionId: json['functionId'] as String,
       typeArguments: (json['typeArguments'] as List<dynamic>)
           .map((e) => e as String)
@@ -16,8 +16,8 @@ _$_EntryFunctionPayload _$$_EntryFunctionPayloadFromJson(
       arguments: json['arguments'] as List<dynamic>,
     );
 
-Map<String, dynamic> _$$_EntryFunctionPayloadToJson(
-        _$_EntryFunctionPayload instance) =>
+Map<String, dynamic> _$$EntryFunctionPayloadImplToJson(
+        _$EntryFunctionPayloadImpl instance) =>
     <String, dynamic>{
       'functionId': instance.functionId,
       'typeArguments': instance.typeArguments,

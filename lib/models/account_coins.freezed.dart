@@ -12,7 +12,7 @@ part of 'account_coins.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 AccountCoins _$AccountCoinsFromJson(Map<String, dynamic> json) {
   return _AccountCoins.fromJson(json);
@@ -29,12 +29,13 @@ mixin _$AccountCoins {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_AccountCoins implements _AccountCoins {
-  const _$_AccountCoins({required final List<CoinBalance> currentCoinBalances})
+class _$AccountCoinsImpl implements _AccountCoins {
+  const _$AccountCoinsImpl(
+      {required final List<CoinBalance> currentCoinBalances})
       : _currentCoinBalances = currentCoinBalances;
 
-  factory _$_AccountCoins.fromJson(Map<String, dynamic> json) =>
-      _$$_AccountCoinsFromJson(json);
+  factory _$AccountCoinsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AccountCoinsImplFromJson(json);
 
   final List<CoinBalance> _currentCoinBalances;
   @override
@@ -52,7 +53,7 @@ class _$_AccountCoins implements _AccountCoins {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AccountCoinsToJson(
+    return _$$AccountCoinsImplToJson(
       this,
     );
   }
@@ -60,10 +61,11 @@ class _$_AccountCoins implements _AccountCoins {
 
 abstract class _AccountCoins implements AccountCoins {
   const factory _AccountCoins(
-      {required final List<CoinBalance> currentCoinBalances}) = _$_AccountCoins;
+          {required final List<CoinBalance> currentCoinBalances}) =
+      _$AccountCoinsImpl;
 
   factory _AccountCoins.fromJson(Map<String, dynamic> json) =
-      _$_AccountCoins.fromJson;
+      _$AccountCoinsImpl.fromJson;
 
   @override
   List<CoinBalance> get currentCoinBalances;
@@ -85,12 +87,12 @@ mixin _$CoinBalance {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CoinBalance implements _CoinBalance {
-  const _$_CoinBalance(
+class _$CoinBalanceImpl implements _CoinBalance {
+  const _$CoinBalanceImpl(
       {required this.amount, required this.coinType, this.coinInfo});
 
-  factory _$_CoinBalance.fromJson(Map<String, dynamic> json) =>
-      _$$_CoinBalanceFromJson(json);
+  factory _$CoinBalanceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CoinBalanceImplFromJson(json);
 
   @override
   final int amount;
@@ -106,7 +108,7 @@ class _$_CoinBalance implements _CoinBalance {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CoinBalanceToJson(
+    return _$$CoinBalanceImplToJson(
       this,
     );
   }
@@ -116,10 +118,10 @@ abstract class _CoinBalance implements CoinBalance {
   const factory _CoinBalance(
       {required final int amount,
       required final String coinType,
-      final CoinInfo? coinInfo}) = _$_CoinBalance;
+      final CoinInfo? coinInfo}) = _$CoinBalanceImpl;
 
   factory _CoinBalance.fromJson(Map<String, dynamic> json) =
-      _$_CoinBalance.fromJson;
+      _$CoinBalanceImpl.fromJson;
 
   @override
   int get amount;
@@ -145,12 +147,12 @@ mixin _$CoinInfo {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_CoinInfo implements _CoinInfo {
-  const _$_CoinInfo(
+class _$CoinInfoImpl implements _CoinInfo {
+  const _$CoinInfoImpl(
       {required this.name, required this.decimals, required this.symbol});
 
-  factory _$_CoinInfo.fromJson(Map<String, dynamic> json) =>
-      _$$_CoinInfoFromJson(json);
+  factory _$CoinInfoImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CoinInfoImplFromJson(json);
 
   @override
   final String name;
@@ -166,7 +168,7 @@ class _$_CoinInfo implements _CoinInfo {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CoinInfoToJson(
+    return _$$CoinInfoImplToJson(
       this,
     );
   }
@@ -176,9 +178,10 @@ abstract class _CoinInfo implements CoinInfo {
   const factory _CoinInfo(
       {required final String name,
       required final int decimals,
-      required final String symbol}) = _$_CoinInfo;
+      required final String symbol}) = _$CoinInfoImpl;
 
-  factory _CoinInfo.fromJson(Map<String, dynamic> json) = _$_CoinInfo.fromJson;
+  factory _CoinInfo.fromJson(Map<String, dynamic> json) =
+      _$CoinInfoImpl.fromJson;
 
   @override
   String get name;

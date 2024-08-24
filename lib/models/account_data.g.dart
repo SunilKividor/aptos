@@ -6,13 +6,13 @@ part of 'account_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AccountData _$$_AccountDataFromJson(Map<String, dynamic> json) =>
-    _$_AccountData(
+_$AccountDataImpl _$$AccountDataImplFromJson(Map<String, dynamic> json) =>
+    _$AccountDataImpl(
       sequenceNumber: json['sequence_number'] as String,
       authenticationKey: json['authentication_key'] as String,
     );
 
-Map<String, dynamic> _$$_AccountDataToJson(_$_AccountData instance) =>
+Map<String, dynamic> _$$AccountDataImplToJson(_$AccountDataImpl instance) =>
     <String, dynamic>{
       'sequence_number': instance.sequenceNumber,
       'authentication_key': instance.authenticationKey,

@@ -6,35 +6,36 @@ part of 'coin_activities.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CoinActivities _$$_CoinActivitiesFromJson(Map<String, dynamic> json) =>
-    _$_CoinActivities(
+_$CoinActivitiesImpl _$$CoinActivitiesImplFromJson(Map<String, dynamic> json) =>
+    _$CoinActivitiesImpl(
       coinActivities: (json['coin_activities'] as List<dynamic>)
           .map((e) => CoinActivity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$_CoinActivitiesToJson(_$_CoinActivities instance) =>
+Map<String, dynamic> _$$CoinActivitiesImplToJson(
+        _$CoinActivitiesImpl instance) =>
     <String, dynamic>{
       'coin_activities': instance.coinActivities,
     };
 
-_$_CoinActivity _$$_CoinActivityFromJson(Map<String, dynamic> json) =>
-    _$_CoinActivity(
+_$CoinActivityImpl _$$CoinActivityImplFromJson(Map<String, dynamic> json) =>
+    _$CoinActivityImpl(
       transactionTimestamp: json['transaction_timestamp'] as String,
-      transactionVersion: json['transaction_version'] as int,
-      amount: json['amount'] as int,
+      transactionVersion: (json['transaction_version'] as num).toInt(),
+      amount: (json['amount'] as num).toInt(),
       activityType: json['activity_type'] as String,
       coinType: json['coin_type'] as String,
       isGasFee: json['is_gas_fee'] as bool,
       isTransactionSuccess: json['is_transaction_success'] as bool,
       eventAccountAddress: json['event_account_address'] as String,
-      eventCreationNumber: json['event_creation_number'] as int,
-      eventSequenceNumber: json['event_sequence_number'] as int,
+      eventCreationNumber: (json['event_creation_number'] as num).toInt(),
+      eventSequenceNumber: (json['event_sequence_number'] as num).toInt(),
       entryFunctionIdStr: json['entry_function_id_str'] as String?,
-      blockHeight: json['block_height'] as int,
+      blockHeight: (json['block_height'] as num).toInt(),
     );
 
-Map<String, dynamic> _$$_CoinActivityToJson(_$_CoinActivity instance) =>
+Map<String, dynamic> _$$CoinActivityImplToJson(_$CoinActivityImpl instance) =>
     <String, dynamic>{
       'transaction_timestamp': instance.transactionTimestamp,
       'transaction_version': instance.transactionVersion,

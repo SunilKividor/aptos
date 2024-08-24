@@ -12,7 +12,7 @@ part of 'payload.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Payload _$PayloadFromJson(Map<String, dynamic> json) {
   return _Payload.fromJson(json);
@@ -31,8 +31,8 @@ mixin _$Payload {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_Payload implements _Payload {
-  const _$_Payload(
+class _$PayloadImpl implements _Payload {
+  const _$PayloadImpl(
       {required this.type,
       required this.function,
       required final List<String> typeArguments,
@@ -40,8 +40,8 @@ class _$_Payload implements _Payload {
       : _typeArguments = typeArguments,
         _arguments = arguments;
 
-  factory _$_Payload.fromJson(Map<String, dynamic> json) =>
-      _$$_PayloadFromJson(json);
+  factory _$PayloadImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PayloadImplFromJson(json);
 
   @override
   final String type;
@@ -70,7 +70,7 @@ class _$_Payload implements _Payload {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PayloadToJson(
+    return _$$PayloadImplToJson(
       this,
     );
   }
@@ -81,9 +81,9 @@ abstract class _Payload implements Payload {
       {required final String type,
       required final String function,
       required final List<String> typeArguments,
-      required final List<dynamic> arguments}) = _$_Payload;
+      required final List<dynamic> arguments}) = _$PayloadImpl;
 
-  factory _Payload.fromJson(Map<String, dynamic> json) = _$_Payload.fromJson;
+  factory _Payload.fromJson(Map<String, dynamic> json) = _$PayloadImpl.fromJson;
 
   @override
   String get type;

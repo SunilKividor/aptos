@@ -12,7 +12,7 @@ part of 'entry_function_payload.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 EntryFunctionPayload _$EntryFunctionPayloadFromJson(Map<String, dynamic> json) {
   return _EntryFunctionPayload.fromJson(json);
@@ -29,16 +29,16 @@ mixin _$EntryFunctionPayload {
 
 /// @nodoc
 @JsonSerializable()
-class _$_EntryFunctionPayload implements _EntryFunctionPayload {
-  const _$_EntryFunctionPayload(
+class _$EntryFunctionPayloadImpl implements _EntryFunctionPayload {
+  const _$EntryFunctionPayloadImpl(
       {required this.functionId,
       required final List<String> typeArguments,
       required final List<dynamic> arguments})
       : _typeArguments = typeArguments,
         _arguments = arguments;
 
-  factory _$_EntryFunctionPayload.fromJson(Map<String, dynamic> json) =>
-      _$$_EntryFunctionPayloadFromJson(json);
+  factory _$EntryFunctionPayloadImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EntryFunctionPayloadImplFromJson(json);
 
   @override
   final String functionId;
@@ -65,7 +65,7 @@ class _$_EntryFunctionPayload implements _EntryFunctionPayload {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_EntryFunctionPayloadToJson(
+    return _$$EntryFunctionPayloadImplToJson(
       this,
     );
   }
@@ -75,10 +75,10 @@ abstract class _EntryFunctionPayload implements EntryFunctionPayload {
   const factory _EntryFunctionPayload(
       {required final String functionId,
       required final List<String> typeArguments,
-      required final List<dynamic> arguments}) = _$_EntryFunctionPayload;
+      required final List<dynamic> arguments}) = _$EntryFunctionPayloadImpl;
 
   factory _EntryFunctionPayload.fromJson(Map<String, dynamic> json) =
-      _$_EntryFunctionPayload.fromJson;
+      _$EntryFunctionPayloadImpl.fromJson;
 
   @override
   String get functionId;

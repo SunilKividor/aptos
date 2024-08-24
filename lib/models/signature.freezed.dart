@@ -12,7 +12,7 @@ part of 'signature.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Signature _$SignatureFromJson(Map<String, dynamic> json) {
   return _Signature.fromJson(json);
@@ -30,12 +30,12 @@ mixin _$Signature {
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_Signature implements _Signature {
-  const _$_Signature(
+class _$SignatureImpl implements _Signature {
+  const _$SignatureImpl(
       {required this.type, required this.publicKey, required this.signature});
 
-  factory _$_Signature.fromJson(Map<String, dynamic> json) =>
-      _$$_SignatureFromJson(json);
+  factory _$SignatureImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SignatureImplFromJson(json);
 
   @override
   final String type;
@@ -51,7 +51,7 @@ class _$_Signature implements _Signature {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SignatureToJson(
+    return _$$SignatureImplToJson(
       this,
     );
   }
@@ -61,10 +61,10 @@ abstract class _Signature implements Signature {
   const factory _Signature(
       {required final String type,
       required final String publicKey,
-      required final String signature}) = _$_Signature;
+      required final String signature}) = _$SignatureImpl;
 
   factory _Signature.fromJson(Map<String, dynamic> json) =
-      _$_Signature.fromJson;
+      _$SignatureImpl.fromJson;
 
   @override
   String get type;
