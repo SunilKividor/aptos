@@ -290,8 +290,22 @@ class AptosClient with AptosClientInterface {
   Future<String> encodeSubmission(
       TransactionEncodeSubmissionRequest transaction) async {
     final path = "$endpoint/transactions/encode_submission";
+    final data = {
+  "sender": transaction.sender,
+  "sequence_number": transaction.sequenceNumber,
+  "max_gas_amount": transaction.maxGasAmount,
+  "gas_unit_price": transaction.gasUnitPrice,
+  "expiration_timestamp_secs": transaction.expirationTimestampSecs,
+  "payload": {
+    "type": "entry_function_payload",
+    "function": "0x1::aptos_coin::transfer",
+    "type_arguments": ["0x1::aptos_coin::AptosCoin"],
+    "arguments": [],
+    "mode": "write",
+    "omitEmptyAndOptionalProperties": true
+  }};
     final resp = await Dio().post(path,
-        data: transaction,
+        data: data,
         options: Options(headers: {
           'Content-Type': 'application/json',
         }));
