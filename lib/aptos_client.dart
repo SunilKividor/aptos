@@ -295,10 +295,10 @@ class AptosClient with AptosClientInterface {
   "sequence_number": transaction.sequenceNumber,
   "max_gas_amount": transaction.maxGasAmount,
   "gas_unit_price": transaction.gasUnitPrice,
-  "expiration_timestamp_secs": "1724515649",
+  "expiration_timestamp_secs": "20024515649",
   "payload": {
     "type": "entry_function_payload",
-    "function": "0x1::aptos_coin::transfer",
+    "function": "0x1::coin::transfer",
     "type_arguments": ["0x1::aptos_coin::AptosCoin"],
     "arguments": ["0x66a77185e5ad0c5687017797b8702ea001d5a3e8aa2da49577d4629bb23162b6", "1044780"],
   }};
