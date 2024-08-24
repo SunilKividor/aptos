@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:aptos/aptos.dart';
@@ -27,7 +28,12 @@ class AptosClient with AptosClientInterface {
   Future<AccountData> getAccount(String address) async {
     final path = "$endpoint/accounts/$address";
     final resp = await http.get(path);
-    return AccountData.fromJson(resp.data);
+    if (resp.statusCode == 200) {
+    final json = jsonDecode(resp.data) as Map<String, dynamic>;
+    return AccountData.fromJson(json);
+  } else {
+    throw Exception('Failed to load account data');
+  }
   }
 
   Future<bool> accountExist(String address) async {
