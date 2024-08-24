@@ -9,7 +9,8 @@ import 'package:aptos/models/entry_function_payload.dart';
 import 'package:aptos/models/account_data.dart';
 import 'package:aptos/models/table_item.dart';
 import 'package:aptos/models/transaction.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:http/http.dart';
 
 class AptosClient with AptosClientInterface {
 
@@ -27,11 +28,10 @@ class AptosClient with AptosClientInterface {
   @override
   Future<AccountData> getAccount(String address) async {
     final path = "$endpoint/accounts/$address";
-    final resp = await http.get(path);
+    final resp = await get(Uri.parse(path));
     if (resp.statusCode == 200) {
-    final json = jsonDecode(resp.data) as Map<String, dynamic>;
-    // return AccountData.fromJson(json);
-    return const AccountData(sequenceNumber: '123', authenticationKey: 'authenticationkey');
+    final json = jsonDecode(resp.body) as Map<String, dynamic>;
+    return AccountData.fromJson(json);
   } else {
     throw Exception('Failed to load account data');
   }
@@ -177,8 +177,8 @@ class AptosClient with AptosClientInterface {
 
   Future<dynamic> submitSignedBCSTransaction(Uint8List signedTxn) async {
     final path = "$endpoint/transactions";
-    final file = MultipartFile.fromBytes(signedTxn).finalize();
-    final options = Options(
+    final file = dio.MultipartFile.fromBytes(signedTxn).finalize();
+    final options = dio.Options(
       contentType: "application/x.aptos.signed_transaction+bcs",
       headers: {"content-length": signedTxn.length},
     );
@@ -200,8 +200,8 @@ class AptosClient with AptosClientInterface {
       "estimate_prioritized_gas_unit_price": estimatePrioritizedGasUnitPrice
     };
     final path = "$endpoint/transactions/simulate";
-    final file = MultipartFile.fromBytes(signedTxn).finalize();
-    final options = Options(
+    final file = dio.MultipartFile.fromBytes(signedTxn).finalize();
+    final options = dio.Options(
       contentType: "application/x.aptos.signed_transaction+bcs",
       headers: {"content-length": signedTxn.length},
     );
@@ -372,7 +372,7 @@ class AptosClient with AptosClientInterface {
           break;
         }
       } catch (e) {
-        final isDioError = e is DioError;
+        final isDioError = e is dio.DioError;
         int statusCode = 0;
         if (isDioError) {
           statusCode = e.response?.statusCode ?? 0;
