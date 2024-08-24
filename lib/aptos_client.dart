@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:aptos/aptos.dart';
 import 'package:aptos/aptos_types/rotation_proof_challenge.dart';
 import 'package:aptos/constants.dart';
-import 'package:aptos/http/http.dart';
 import 'package:aptos/models/entry_function_payload.dart';
 import 'package:aptos/models/account_data.dart';
 import 'package:aptos/models/table_item.dart';
@@ -45,27 +44,27 @@ class AptosClient with AptosClientInterface {
 
   Future<dynamic> getAccountResources(String address) async {
     final path = "$endpoint/accounts/$address/resources";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data;
   }
 
   Future<dynamic> getAccountResource(String address, String resourceType) async {
     final path = "$endpoint/accounts/$address/resource/$resourceType";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data;
   }
 
   @override
   Future<dynamic> getAccountModules(String address) async {
     final path = "$endpoint/accounts/$address/modules";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data;
   }
 
   Future<dynamic> getAccountModule(String address, String moduleName) async {
     final path = "$endpoint/accounts/$address/module/$moduleName";
     try {
-      final resp = await http.get(path);
+      final resp = await Dio().get(path);
       return resp.data;
     } catch(err) {
       return null;
@@ -77,13 +76,13 @@ class AptosClient with AptosClientInterface {
   
   Future<dynamic> getBlocksByHeight(int blockHeight, [bool withTransactioins = false]) async {
     final path = "$endpoint/blocks/by_height/$blockHeight?with_transactions=$withTransactioins";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data;
   }
 
   Future<dynamic> getBlocksByVersion(int version, [bool withTransactioins = false]) async {
     final path = "$endpoint/blocks/by_version/$version?with_transactions=$withTransactioins";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data;
   }
 
@@ -95,7 +94,7 @@ class AptosClient with AptosClientInterface {
     if (limit != null) params["limit"] = limit;
 
     final path = "$endpoint/accounts/$address/events/$creationNumber";
-    final resp = await http.get(path, queryParameters: params);
+    final resp = await Dio().get(path, queryParameters: params);
     return resp.data;
   }
 
@@ -105,7 +104,7 @@ class AptosClient with AptosClientInterface {
     if (limit != null) params["limit"] = limit;
 
     final path = "$endpoint/accounts/$address/events/$eventHandle/$fieldName";
-    final resp = await http.get(path, queryParameters: params);
+    final resp = await Dio().get(path, queryParameters: params);
     return resp.data;
   }
 
@@ -113,19 +112,19 @@ class AptosClient with AptosClientInterface {
   
   Future<dynamic> showOpenAPIExplorer() async {
     final path = "$endpoint/spec";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data;
   }
 
   Future<String> checkBasicNodeHealth() async {
     final path = "$endpoint/-/healthy";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data["message"];
   }
 
   Future<dynamic> getLedgerInfo() async {
     final path = "$endpoint";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data;
   }
 
@@ -145,7 +144,7 @@ class AptosClient with AptosClientInterface {
     data["key_type"] = tableItem.keyType;
     data["value_type"] = tableItem.valueType;
     data["key"] = tableItem.key;
-    final resp = await http.post(path, data: data);
+    final resp = await Dio().post(path, data: data);
     return resp.data;
   }
 
@@ -158,13 +157,13 @@ class AptosClient with AptosClientInterface {
     if (limit != null) params["limit"] = limit;
 
     final path = "$endpoint/transactions";
-    final resp = await http.get(path, queryParameters: params);
+    final resp = await Dio().get(path, queryParameters: params);
     return resp.data;
   }
 
   Future<dynamic> submitTransaction(TransactionRequest transaction) async {
     final path = "$endpoint/transactions";
-    final resp = await http.post(path, data: transaction);
+    final resp = await Dio().post(path, data: transaction);
     return resp.data;
   }
 
@@ -175,7 +174,7 @@ class AptosClient with AptosClientInterface {
       contentType: "application/x.aptos.signed_transaction+bcs",
       headers: {"content-length": signedTxn.length},
     );
-    final resp = await http.post(path, data: file, options: options);
+    final resp = await Dio().post(path, data: file, options: options);
     return resp.data;
   }
 
@@ -198,14 +197,14 @@ class AptosClient with AptosClientInterface {
       contentType: "application/x.aptos.signed_transaction+bcs",
       headers: {"content-length": signedTxn.length},
     );
-    final resp = await http.post(path,
+    final resp = await Dio().post(path,
         data: file, options: options, queryParameters: params);
     return resp.data;
   }
 
   Future<dynamic> submitBatchTransactions(List<TransactionRequest> transactions) async {
     final path = "$endpoint/transactions/batch";
-    final resp = await http.post(path, data: transactions);
+    final resp = await Dio().post(path, data: transactions);
     return resp.data;
   }
 
@@ -220,7 +219,7 @@ class AptosClient with AptosClientInterface {
       "estimate_prioritized_gas_unit_price": estimatePrioritizedGasUnitPrice
     };
     final path = "$endpoint/transactions/simulate";
-    final resp = await http.post(path, data: transaction.toJson(), queryParameters: params);
+    final resp = await Dio().post(path, data: transaction.toJson(), queryParameters: params);
     return resp.data;
   }
 
@@ -276,13 +275,13 @@ class AptosClient with AptosClientInterface {
 
   Future<dynamic> getTransactionByHash(String txHash) async {
     final path = "$endpoint/transactions/by_hash/$txHash";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data;
   }
 
   Future<dynamic> getTransactionByVersion(String txVersion) async {
     final path = "$endpoint/transactions/by_version/$txVersion";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data;
   }
 
@@ -292,20 +291,20 @@ class AptosClient with AptosClientInterface {
     if (limit != null) params["limit"] = limit;
 
     final path = "$endpoint/accounts/$address/transactions";
-    final resp = await http.get(path, queryParameters: params);
+    final resp = await Dio().get(path, queryParameters: params);
     return resp.data;
   }
 
   Future<String> encodeSubmission(TransactionEncodeSubmissionRequest transaction) async {
     final path = "$endpoint/transactions/encode_submission";
-    final resp = await http.post(path, data: transaction);
+    final resp = await Dio().post(path, data: transaction);
     return resp.data;
   }
 
   @override
   Future<int> estimateGasPrice() async {
     final path = "$endpoint/estimate_gas_price";
-    final resp = await http.get(path);
+    final resp = await Dio().get(path);
     return resp.data["gas_estimate"];
   }
 
@@ -643,7 +642,7 @@ static Future<Uint8List> generateBCSSimulation(AptosAccount accountFrom, RawTran
     };
     final params = ledgerVersion != null ? { "ledger_version": ledgerVersion } : null;
     final path = "$endpoint/view";
-    final resp = await http.post(path, data: data, queryParameters: params);
+    final resp = await Dio().post(path, data: data, queryParameters: params);
     return resp.data;
   }
 
