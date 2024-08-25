@@ -168,7 +168,31 @@ class AptosClient with AptosClientInterface {
 
   Future<dynamic> submitTransaction(TransactionRequest transaction) async {
     final path = "$endpoint/transactions";
-    final resp = await Dio().post(path, data: transaction);
+    final data = {
+      "sender": transaction.sender,
+      "sequence_number": transaction.sequenceNumber,
+      "max_gas_amount": transaction.maxGasAmount,
+      "gas_unit_price": transaction.gasUnitPrice,
+      "expiration_timestamp_secs": transaction.expirationTimestampSecs,
+      "payload": {
+        "type": transaction.payload.type,
+        "function": transaction.payload.function,
+        "type_arguments": transaction.payload.typeArguments,
+        "arguments": transaction.payload.arguments,
+      },
+      "signature": {
+        "type": transaction.signature.type,
+        "public_key": transaction.signature.publicKey,
+        "signature": transaction.signature.signature,
+      }
+    };
+    final resp = await Dio().post(
+      path,
+      data: data,
+      options: Options(headers: {
+        'Content-Type': 'application/json',
+      }),
+    );
     return resp.data;
   }
 
