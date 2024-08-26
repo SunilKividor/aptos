@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 import 'package:aptos/aptos_account.dart';
 import 'package:aptos/aptos_client.dart';
 import 'package:aptos/models/entry_function_payload.dart';
@@ -25,6 +27,42 @@ class CoinClient {
   /// receiver account if it does not exist on chain yet. If you do not set
   /// this to true, the transaction will fail if the receiver account does not
   /// exist on-chain.
+    Future<String> transferBatch(
+    AptosAccount from,
+    String to,
+    List<BigInt> amount,
+    List<String> coinType,
+    {
+    BigInt? maxGasAmount,
+    BigInt? gasUnitPrice,
+    BigInt? expireTimestamp,
+    bool createReceiverIfMissing = false
+  }) async {
+
+    final func = createReceiverIfMissing ? "0x1::aptos_account::transfer_coins" : "0x1::coin::transfer";
+
+    final config = ABIBuilderConfig(
+      sender: from.address,
+      maxGasAmount: maxGasAmount,
+      gasUnitPrice: gasUnitPrice,
+      expSecFromNow: expireTimestamp
+    );
+    
+    final builder = TransactionBuilderRemoteABI(aptosClient, config);
+    List<Uint8List> bcsTxns = [];
+    for(int i=0;i<coinType.length;i++){
+          final rawTxn = await builder.build(
+      func,
+      [coinType[i]],
+      [to, amount[i]]
+    );
+    final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
+    bcsTxns.add(bcsTxn);
+    }
+    final resp = await aptosClient.submitSignedBatchBCSTransaction(bcsTxns);
+    return resp["hash"];
+  }
+
   Future<String> transfer(
     AptosAccount from,
     String to,
