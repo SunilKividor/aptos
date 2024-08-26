@@ -208,7 +208,7 @@ class AptosClient with AptosClientInterface {
   }
 
     Future<dynamic> submitSignedBatchBCSTransaction(List<Uint8List> signedTxns) async {
-    final path = "$endpoint/transactions";
+    final path = "$endpoint/transactions/batch";
     List<Stream<Uint8List>> files = [];
     for(int i=0;i<signedTxns.length;i++){
       final file = MultipartFile.fromBytes(signedTxns[i]).finalize();
@@ -216,6 +216,7 @@ class AptosClient with AptosClientInterface {
     }
     final options = Options(
       contentType: "application/x.aptos.signed_transaction+bcs",
+      headers: {"content-length": signedTxns.length},
     );
     final resp = await Dio().post(path, data: files, options: options);
     return resp.data;
