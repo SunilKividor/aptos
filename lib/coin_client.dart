@@ -30,8 +30,8 @@ class CoinClient {
     Future<String> transferBatch(
     AptosAccount from,
     String to,
-    List<BigInt> amount,
-    List<String> coinType,
+    List<BigInt> amounts,
+    List<String> coinTypes,
     {
     BigInt? maxGasAmount,
     BigInt? gasUnitPrice,
@@ -49,17 +49,13 @@ class CoinClient {
     );
     
     final builder = TransactionBuilderRemoteABI(aptosClient, config);
-    List<Uint8List> bcsTxns = [];
-    for(int i=0;i<coinType.length;i++){
           final rawTxn = await builder.build(
       func,
-      [coinType[i]],
-      [to, amount[i]]
+      coinTypes,
+      [to, amounts]
     );
     final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
-    bcsTxns.add(bcsTxn);
-    }
-    final resp = await aptosClient.submitSignedBatchBCSTransaction(bcsTxns);
+    final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
     return resp["hash"];
   }
 
