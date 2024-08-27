@@ -73,6 +73,7 @@ class CoinClient {
     BigInt? maxGasAmount,
     BigInt? gasUnitPrice,
     BigInt? expireTimestamp,
+    bool multiReceiver = false,
   }) async {
 
     final func = function;
@@ -93,8 +94,16 @@ class CoinClient {
     }
     List<dynamic> args = [];
     for(int i=0;i<amount.length;i++){
-      args.add([amount[i]]);
-      args.add([to[0]]);
+      if(multiReceiver) {
+        args.add([amount[0]]);
+      } else {
+        args.add([amount[i]]);
+      }
+      if(multiReceiver){
+        args.add([to[i]]);
+      } else {
+        args.add([to[0]]);
+      }
     }
     while(args.length < 14){
       args.add([]);
@@ -104,23 +113,6 @@ class CoinClient {
       func,
       typeArgs,
       args,
-      // [
-      //   [amount[0]],
-      //   [to[0]],
-      //   [amount[1]],
-      //   [to[0]],
-      //   [],
-      //   [],
-      //   [],
-      //   [],
-      //   [],
-      //   [],
-      //   [],
-      //   [],
-      //   [],
-      //   [],
-      //   numberOfCoins,
-      // ]
     );
 
     final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
