@@ -94,7 +94,7 @@ class CoinClient {
         for(int i=0;i<7-coinType.length;i++)
           "0x1::string::String"
       ],
-      to.length > 1 ?[
+      [
         for(int i=0;i<amount.length;i++)
           [amount[i]],
           [to[0]],
@@ -102,8 +102,6 @@ class CoinClient {
           [],
           [],
         numberOfCoins,
-      ] : [
-        
       ],
     );
 
