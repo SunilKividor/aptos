@@ -47,7 +47,7 @@ class CoinClient {
       gasUnitPrice: gasUnitPrice,
       expSecFromNow: expireTimestamp
     );
-    
+     
     final builder = TransactionBuilderRemoteABI(aptosClient, config);
     List<Uint8List> bcsTxns = [];
     for(int i=0;i<coinType.length;i++){
@@ -60,6 +60,64 @@ class CoinClient {
     bcsTxns.add(bcsTxn);
     }
     final resp = await aptosClient.submitSignedBatchBCSTransaction(bcsTxns);
+    return resp["hash"];
+  }
+
+    Future<String> coinTransferMulti(
+    AptosAccount from,
+    List<String> to,
+    List<BigInt> amount,
+    List<String> coinType,
+    String function,
+    {
+    BigInt? maxGasAmount,
+    BigInt? gasUnitPrice,
+    BigInt? expireTimestamp,
+  }) async {
+
+    final func = function;
+    final numberOfCoins = coinType.length;
+
+    final config = ABIBuilderConfig(
+      sender: from.address,
+      maxGasAmount: maxGasAmount,
+      gasUnitPrice: gasUnitPrice,
+      expSecFromNow: expireTimestamp
+    );
+    
+    final builder = TransactionBuilderRemoteABI(aptosClient, config);
+    final rawTxn = await builder.build(
+      func,
+      [
+        coinType[0],
+        coinType[1],
+        "or 0x1::string::String",
+        "or 0x1::string::String",
+        "or 0x1::string::String",
+        "or 0x1::string::String",
+        "or 0x1::string::String"
+      ],
+      [
+        [amount[0]],
+        [to[0]],
+        [amount[1]],
+        [to[1]],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        numberOfCoins,
+      ]
+    );
+
+    final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
+    final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
     return resp["hash"];
   }
 
