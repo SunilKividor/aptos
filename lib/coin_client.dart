@@ -92,26 +92,35 @@ class CoinClient {
       typeArgs.add("0x1::string::String");
     }
     List<dynamic> args = [];
+    for(int i=0;i<amount.length;i++){
+      args.add([amount[i]]);
+      args.add([to[0]]);
+    }
+    while(args.length < 14){
+      args.add([]);
+    }
+    args.add(numberOfCoins);
     final rawTxn = await builder.build(
       func,
       typeArgs,
-      [
-        [amount[0]],
-        [to[0]],
-        [amount[1]],
-        [to[0]],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        numberOfCoins,
-      ]
+      args,
+      // [
+      //   [amount[0]],
+      //   [to[0]],
+      //   [amount[1]],
+      //   [to[0]],
+      //   [],
+      //   [],
+      //   [],
+      //   [],
+      //   [],
+      //   [],
+      //   [],
+      //   [],
+      //   [],
+      //   [],
+      //   numberOfCoins,
+      // ]
     );
 
     final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
