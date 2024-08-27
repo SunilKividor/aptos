@@ -86,23 +86,24 @@ class CoinClient {
     );
     
     final builder = TransactionBuilderRemoteABI(aptosClient, config);
+    List<String> typeArgs = [];
+    typeArgs.addAll(coinType);
+    while(typeArgs.length < 7) {
+      typeArgs.add("0x1::string::String");
+    }
+    List<dynamic> args = [];
+    for(int i=0;i<amount.length;i++){
+      args.add([amount[i]]);
+      [to[0]];
+    }
+    while(args.length < 14) {
+      args.add([]);
+    }
+    args.add(numberOfCoins);
     final rawTxn = await builder.build(
       func,
-      [
-        for(int i=0;i<coinType.length;i++)
-          coinType[i],
-        for(int i=0;i<7-coinType.length;i++)
-          "0x1::string::String"
-      ],
-      [
-        for(int i=0;i<amount.length;i++)
-          [amount[i]],
-          [to[0]],
-        for(int i=0;i<7-amount.length;i++)
-          [],
-          [],
-        numberOfCoins,
-      ],
+      typeArgs,
+      args
     );
 
     final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
