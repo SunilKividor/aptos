@@ -94,7 +94,7 @@ class CoinClient {
     List<dynamic> args = [];
     for(int i=0;i<amount.length;i++){
       args.add([amount[i]]);
-      [to[0]];
+      args.add([[to[0]]]);
     }
     while(args.length < 14) {
       args.add([]);
