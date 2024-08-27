@@ -93,14 +93,14 @@ class CoinClient {
       typeArgs.add("0x1::string::String");
     }
     List<dynamic> args = [];
-    for(int i=0;i<amount.length;i++){
+    for(int i=0;i<coinType.length;i++){
       if(multiReceiver) {
-        args.add([amount[0]]);
+        args.add([amount]);
       } else {
         args.add([amount[i]]);
       }
       if(multiReceiver){
-        args.add([to[i]]);
+        args.add([to]);
       } else {
         args.add([to[0]]);
       }
