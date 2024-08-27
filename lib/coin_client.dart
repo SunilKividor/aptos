@@ -91,17 +91,17 @@ class CoinClient {
       [
         coinType[0],
         coinType[1],
-        "or 0x1::string::String",
-        "or 0x1::string::String",
-        "or 0x1::string::String",
-        "or 0x1::string::String",
-        "or 0x1::string::String"
+        "0x1::string::String",
+        "0x1::string::String",
+        "0x1::string::String",
+        "0x1::string::String",
+        "0x1::string::String"
       ],
       [
         [amount[0]],
         [to[0]],
         [amount[1]],
-        [to[1]],
+        [to[0]],
         [],
         [],
         [],
