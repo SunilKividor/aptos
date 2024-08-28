@@ -23,7 +23,7 @@ class TokenV1Entity {
   final List<String> collectionName;
   final List<String> nftName;
   final List<String> receiverAddress;
-  final int tokenPropertyVersion;
+  final List<int>  tokenPropertyVersion;
   TokenV1Entity({
     required this.tokenCreator,
     required this.collectionName,
