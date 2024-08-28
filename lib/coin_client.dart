@@ -154,7 +154,7 @@ class CoinClient {
     return resp["hash"];
   }
 
-    Future<String> nftTransfer(AptosNftTransactionEntity nftDetails) async {
+  Future<String> nftTransfer(AptosNftTransactionEntity nftDetails) async {
 
     final func = nftDetails.function;
 
