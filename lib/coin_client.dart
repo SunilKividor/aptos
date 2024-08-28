@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:aptos/aptos_account.dart';
 import 'package:aptos/aptos_client.dart';
+import 'package:aptos/entitites/nft_entity.dart';
 import 'package:aptos/models/entry_function_payload.dart';
 import 'package:aptos/transaction_builder/builder.dart';
 
@@ -149,6 +150,38 @@ class CoinClient {
     );
 
     final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
+    final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
+    return resp["hash"];
+  }
+
+    Future<String> nftTransfer(NftEntity nftDetails) async {
+
+    final func = nftDetails.function;
+
+    final config = ABIBuilderConfig(
+      sender: nftDetails.from.address,
+      maxGasAmount: nftDetails.maxGasAmount,
+      gasUnitPrice: nftDetails.gasUnitPrice,
+      expSecFromNow: nftDetails.expireTimestamp
+    );
+
+    
+    final builder = TransactionBuilderRemoteABI(aptosClient, config);
+    final rawTxn = await builder.build(
+      func,
+      [],
+      [
+        nftDetails.tokenv1Entity.tokenCreator,
+        nftDetails.tokenv1Entity.collectionName,
+        nftDetails.tokenv1Entity.nftName,
+        nftDetails.tokenv1Entity.tokenPropertyVersion,
+        nftDetails.tokenv1Entity.receiverAddress,
+        nftDetails.tokenv2Entity.tokenv2,
+        nftDetails.tokenv2Entity.receiverAddress,
+      ]
+    );
+
+    final bcsTxn = AptosClient.generateBCSTransaction(nftDetails.from, rawTxn);
     final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
     return resp["hash"];
   }
