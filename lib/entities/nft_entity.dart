@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:aptos/aptos_account.dart';
 
-class NftEntity {
+class AptosNftTransactionEntity {
   final AptosAccount from;
   final TokenV1Entity tokenv1Entity;
   final TokenV2Entity tokenv2Entity;
@@ -10,7 +10,7 @@ class NftEntity {
   BigInt? gasUnitPrice;
   BigInt? expireTimestamp;
 
-  NftEntity(
+  AptosNftTransactionEntity(
     this.from,
     this.tokenv1Entity,
     this.tokenv2Entity,
