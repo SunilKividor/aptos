@@ -120,7 +120,7 @@ class CoinClient {
     return resp["hash"];
   }
 
-  Future<String> transfer(
+  Future<String> coinTransfer(
     AptosAccount from,
     String to,
     BigInt amount,{
