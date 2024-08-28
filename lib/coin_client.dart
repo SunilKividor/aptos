@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:aptos/aptos_account.dart';
 import 'package:aptos/aptos_client.dart';
-import 'package:aptos/entitites/nft_entity.dart';
+import 'package:aptos/entities/nft_entity.dart';
 import 'package:aptos/models/entry_function_payload.dart';
 import 'package:aptos/transaction_builder/builder.dart';
 
