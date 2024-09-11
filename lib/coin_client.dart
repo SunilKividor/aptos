@@ -95,11 +95,12 @@ class CoinClient {
     }
     List<dynamic> args = [];
     for(int i=0;i<coinType.length;i++){
-      if(multiReceiver) {
-        args.add(amount);
-      } else {
-        args.add([amount[i]]);
-      }
+      // if(multiReceiver) {
+      //   args.add(amount);
+      // } else {
+      //   args.add([amount[i]]);
+      // }
+      args.add([amount[i]]);
       if(multiReceiver){
         args.add(to);
       } else {
