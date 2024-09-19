@@ -187,6 +187,32 @@ class CoinClient {
     return resp["hash"];
   }
 
+  Future<String> swapTransaction({ required String function,required AptosAccount from,required List<String> typeArgs,required List<dynamic> args,  BigInt? maxGasAmount,
+  BigInt? gasUnitPrice,
+  BigInt? expireTimestamp}) async {
+
+    final func = function;
+
+    final config = ABIBuilderConfig(
+      sender:  from.address,
+      maxGasAmount: maxGasAmount,
+      gasUnitPrice: gasUnitPrice,
+      expSecFromNow: expireTimestamp
+    );
+
+    
+    final builder = TransactionBuilderRemoteABI(aptosClient, config);
+    final rawTxn = await builder.build(
+      func,
+      typeArgs,
+      args,
+    );
+
+    final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
+    final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
+    return resp["hash"];
+  }
+
   Future<BigInt> checkBalance(String address, { String? coinType }) async {
     coinType ??= AptosClient.APTOS_COIN;
     String typeTag = "0x1::coin::CoinStore<$coinType>";
