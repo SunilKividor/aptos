@@ -64,12 +64,13 @@ class CoinClient {
     return resp["hash"];
   }
 
-    Future<String> coinTransferMulti(
+    Future<Uint8List> coinTransferMulti(
     AptosAccount from,
     List<String> to,
     List<BigInt> amount,
     List<String> coinType,
     String function,
+
     {
     BigInt? maxGasAmount,
     BigInt? gasUnitPrice,
@@ -118,11 +119,12 @@ class CoinClient {
     );
 
     final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
-    final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
-    return resp["hash"];
+    return bcsTxn;
+    // final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
+    // return resp["hash"];
   }
 
-  Future<String> coinTransfer(
+  Future<Uint8List> coinTransfer(
     AptosAccount from,
     String to,
     BigInt amount,{
@@ -151,11 +153,12 @@ class CoinClient {
     );
 
     final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
-    final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
-    return resp["hash"];
+    return bcsTxn;
+    // final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
+    // return resp["hash"];
   }
 
-  Future<String> nftTransfer(AptosNftTransactionEntity nftDetails) async {
+  Future<Uint8List> nftTransfer(AptosNftTransactionEntity nftDetails) async {
 
     final func = nftDetails.function;
 
@@ -183,11 +186,12 @@ class CoinClient {
     );
 
     final bcsTxn = AptosClient.generateBCSTransaction(nftDetails.from, rawTxn);
-    final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
-    return resp["hash"];
+    return bcsTxn;
+    // final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
+    // return resp["hash"];
   }
 
-  Future<String> swapTransaction({ required String function,required AptosAccount from,required List<String> typeArgs,required List<dynamic> args,  BigInt? maxGasAmount,
+  Future<Uint8List> swapTransaction({ required String function,required AptosAccount from,required List<String> typeArgs,required List<dynamic> args,  BigInt? maxGasAmount,
   BigInt? gasUnitPrice,
   BigInt? expireTimestamp}) async {
 
@@ -209,8 +213,14 @@ class CoinClient {
     );
 
     final bcsTxn = AptosClient.generateBCSTransaction(from, rawTxn);
-    final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
-    return resp["hash"];
+    return bcsTxn;
+    // final resp = await aptosClient.submitSignedBCSTransaction(bcsTxn);
+    // return resp["hash"];
+  }
+
+  Future<String> submitSignedTxn(Uint8List signedTxn) async{
+    final resp = await aptosClient.submitSignedBCSTransaction(signedTxn);
+    return resp["hash"]; 
   }
 
   Future<BigInt> checkBalance(String address, { String? coinType }) async {
